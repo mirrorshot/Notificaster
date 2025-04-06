@@ -1,0 +1,21 @@
+[package]
+name = "notificaster"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+log = "0.4.27"
+chrono = { version = "0.4.40" , features = ["serde"]}
+uuid = "1.16.0"
+actix-web="4.10.2"
+#actix-rt="2.10.0"
+async-graphql = { version = "7.0.16", features = ["chrono", "uuid"] }
+#async-graphql-value="7.0.16"
+async-graphql-actix-web = "7.0.16"
+serde = { version = "1.0.136" }
+dotenv = "0.15.0"
+futures = "0.3"
+mongodb = { version = "3.2.3", features = ["default","zlib-compression","sync"] }
+#tokio = "1.44.2"
+#tokio-stream = "0.1.17"
+#tokio-sync = "0.1.8"
