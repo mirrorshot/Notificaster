@@ -1,4 +1,4 @@
-use async_graphql::{OutputType, SimpleObject};
+use async_graphql::{SimpleObject};
 use chrono::{DateTime, Local};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
