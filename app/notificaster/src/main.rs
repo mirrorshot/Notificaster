@@ -5,7 +5,7 @@ mod storage;
 mod types;
 
 use crate::schema::create_schema;
-use crate::startup::{graphiql, graphql_handler};
+use crate::startup::{graphiql, graphql_handler, PLAYGROUND_PATH, SERVICE_PATH};
 use actix_web::{guard, web, App, HttpResponse, HttpServer};
 use std::env;
 
@@ -29,11 +29,15 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(web::Data::new(schema.clone()))
             .service(
-                web::resource("/playground")
+                web::resource(PLAYGROUND_PATH)
                     .guard(guard::Get())
                     .to(graphiql),
             )
-            .service(web::resource("/").guard(guard::Post()).to(graphql_handler))
+            .service(
+                web::resource(SERVICE_PATH)
+                    .guard(guard::Post())
+                    .to(graphql_handler),
+            )
             .route("/health", web::get().to(check_health_status))
     })
     .bind(("0.0.0.0", port.parse().unwrap()))?
