@@ -7,6 +7,7 @@ mod types;
 use crate::schema::create_schema;
 use crate::startup::{graphiql, graphql_handler, PLAYGROUND_PATH, SERVICE_PATH};
 use actix_web::{guard, web, App, HttpResponse, HttpServer};
+use serde::Serialize;
 use std::env;
 
 /**
@@ -14,10 +15,16 @@ use std::env;
 *
 * To be improved checking db connectivity status and other services.
 */
+
+#[derive(Serialize)]
+struct HealthStatus {
+    status: String,
+}
+
 async fn check_health_status() -> HttpResponse {
-    HttpResponse::Ok()
-        .content_type("application/json")
-        .body("OK")
+    HttpResponse::Ok().json(HealthStatus {
+        status: "healthy".to_string(),
+    })
 }
 
 #[actix_web::main]
